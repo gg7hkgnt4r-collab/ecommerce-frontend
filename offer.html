@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Offers & Deals - Meesho Clone | Today's Best Discounts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background: #f8f9fb;
+      color: #333;
+    }
+
+    /* Top Banner */
+    .top-banner {
+      background: linear-gradient(90deg, #ff4f81, #ff6b81);
+      color: white;
+      text-align: center;
+      padding: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 999;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 50px;
+      width: 100%;
+      backdrop-filter: blur(15px);
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 8%;
+      z-index: 1000;
+    }
+    nav h1 {
+      color: #ff4f81;
+      font-weight: 700;
+      font-size: 28px;
+    }
+    .search-bar {
+      flex: 1;
+      max-width: 550px;
+      margin: 0 30px;
+    }
+    .search-bar input {
+      width: 100%;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 30px;
+      font-size: 15px;
+    }
+    nav ul {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    nav ul li a:hover {
+      color: #ff4f81;
+    }
+
+    /* Offers Hero */
+    .offers-hero {
+      padding: 160px 8% 80px;
+      background: linear-gradient(135deg, #ff4f81, #ff6b81, #ffb3c6);
+      color: white;
+      text-align: center;
+    }
+    .offers-hero h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .offers-hero p {
+      font-size: 22px;
+      max-width: 800px;
+      margin: 0 auto 30px;
+    }
+    .countdown {
+      font-size: 20px;
+      font-weight: 600;
+      background: rgba(0,0,0,0.3);
+      display: inline-block;
+      padding: 12px 30px;
+      border-radius: 50px;
+    }
+
+    /* Deal Tiles */
+    .deal-tiles {
+      padding: 60px 8%;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+    }
+    .deal-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      transition: 0.4s;
+      text-decoration: none;
+      color: #333;
+      position: relative;
+    }
+    .deal-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.18);
+    }
+    .deal-banner {
+      background: #ff4f81;
+      color: white;
+      padding: 12px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 18px;
+    }
+    .deal-card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+    }
+    .deal-info {
+      padding: 20px;
+      text-align: center;
+    }
+    .deal-info h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    .deal-discount {
+      font-size: 36px;
+      font-weight: 800;
+      color: #ff4f81;
+      margin: 10px 0;
+    }
+    .deal-info p {
+      font-size: 16px;
+      color: #555;
+    }
+
+    /* Products Grid - Discounted Items */
+    .discounted-products {
+      padding: 60px 8%;
+      background: white;
+    }
+    .discounted-products h2 {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 50px;
+      color: #ff4f81;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 30px;
+    }
+    .product-card {
+      background: #fff;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      transition: 0.3s;
+    }
+    .product-card:hover {
+      transform: translateY(-10px);
+    }
+    .product-card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+    }
+    .product-info {
+      padding: 15px;
+      text-align: center;
+    }
+    .product-info h4 {
+      font-size: 17px;
+      margin-bottom: 8px;
+    }
+    .price {
+      font-size: 20px;
+      font-weight: 700;
+      color: #ff4f81;
+    }
+    .old-price {
+      text-decoration: line-through;
+      color: #999;
+      margin-left: 10px;
+      font-size: 15px;
+    }
+    .off-tag {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #28a745;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    /* Footer */
+    footer {
+      background: #000;
+      color: #aaa;
+      text-align: center;
+      padding: 40px 8%;
+      font-size: 14px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .offers-hero h1 { font-size: 36px; }
+      .offers-hero p { font-size: 18px; }
+      nav { padding: 15px 5%; flex-wrap: wrap; }
+      .search-bar { margin: 15px 0; width: 90%; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-banner">
+    MEGA BLOCKBUSTER SALE LIVE NOW | Up to 90% OFF + Extra ₹100 Off on App!
+  </div>
+
+  <nav>
+    <h1>Meesho</h1>
+    <div class="search-bar">
+      <input type="text" placeholder="Search for offers, deals..."/>
+    </div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="category.html">Categories</a></li>
+      <li><a href="offer.html">Offers</a></li>
+      <li><a href="cart.html">Cart</a></li>
+    </ul>
+  </nav>
+
+  <section class="offers-hero">
+    <h1>Today's Super Offers & Deals</h1>
+    <p>Grab massive discounts on fashion, beauty, home & more. Limited time only!</p>
+    <div class="countdown">Hurry! Sale Ends in 2 Days</div>
+  </section>
+
+  <!-- Deal Tiles -->
+  <section class="deal-tiles">
+    <a href="#" class="deal-card">
+      <div class="deal-banner">UP TO 80% OFF</div>
+      <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800" alt="Women's Wear">
+      <div class="deal-info">
+        <h3>Women's Ethnic & Western</h3>
+        <div class="deal-discount">80% OFF</div>
+        <p>Sarees, Kurtis, Tops from ₹299</p>
+      </div>
+    </a>
+
+    <a href="#" class="deal-card">
+      <div class="deal-banner">FLAT 70% OFF</div>
+      <img src="https://images.unsplash.com/photo-1618354691552-1205a225f723?w=800" alt="Jewellery">
+      <div class="deal-info">
+        <h3>Jewellery & Accessories</h3>
+        <div class="deal-discount">70% OFF</div>
+        <p>Earrings, Necklaces from ₹99</p>
+      </div>
+    </a>
+
+    <a href="#" class="deal-card">
+      <div class="deal-banner">BUY 1 GET 1</div>
+      <img src="https://images.unsplash.com/photo-1617890686219-509e0a069e31?w=800" alt="Beauty">
+      <div class="deal-info">
+        <h3>Beauty & Makeup</h3>
+        <div class="deal-discount">B1G1 + 50% OFF</div>
+        <p>Lipsticks, Skincare from ₹149</p>
+      </div>
+    </a>
+
+    <a href="#" class="deal-card">
+      <div class="deal-banner">UP TO 90% OFF</div>
+      <img src="https://images.unsplash.com/photo-1585487000160-6ebcfceb0d26?w=800" alt="Bags">
+      <div class="deal-info">
+        <h3>Bags & Footwear</h3>
+        <div class="deal-discount">90% OFF</div>
+        <p>Handbags, Shoes from ₹199</p>
+      </div>
+    </a>
+  </section>
+
+  <!-- Discounted Products Grid -->
+  <section class="discounted-products">
+    <h2>Hot Deals - Don't Miss Out!</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="off-tag">65% OFF</div>
+        <img src="https://i.pinimg.com/736x/b8/ed/0d/b8ed0dc612e13d781d1196f6f923bade.jpg" alt="Kurti">
+        <div class="product-info">
+          <h4>Printed Anarkali Kurti</h4>
+          <div><span class="price">₹499</span> <span class="old-price">₹1499</span></div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="off-tag">75% OFF</div>
+        <img src="https://png.pngtree.com/png-vector/20250516/ourmid/pngtree-elegant-red-evening-gown-white-background-png-image_16215366.png" alt="Dress">
+        <div class="product-info">
+          <h4>Red Party Gown</h4>
+          <div><span class="price">₹999</span> <span class="old-price">₹3999</span></div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="off-tag">60% OFF</div>
+        <img src="https://assets.ajio.com/medias/sys_master/root/20230621/kZBX/649262f1d55b7d0c638baade/-1117Wx1400H-463861167-blue-MODEL.jpg" alt="Jacket">
+        <div class="product-info">
+          <h4>Denim Jacket</h4>
+          <div><span class="price">₹799</span> <span class="old-price">₹1999</span></div>
+        </div>
+      </div>
+
+      <!-- Add 5-8 more similar cards for full feel -->
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Meesho Clone | Grab These Offers Before They're Gone! | Made in Coimbatore ❤️
+  </footer>
+
+</body>
+</html>
