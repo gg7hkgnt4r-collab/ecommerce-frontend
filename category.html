@@ -1,284 +1,395 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Categories - Meesho Clone | Shop by Category</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-    body {
-      background: #f8f9fb;
-      color: #333;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Categories - Meesho Clone | Shop by Category</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
 
-    /* Top Banner */
-    .top-banner {
-      background: #ff4f81;
-      color: white;
-      text-align: center;
-      padding: 10px;
-      font-size: 14px;
-      font-weight: 500;
-      position: fixed;
-      width: 100%;
-      top: 0;
-      z-index: 999;
-    }
+body {
+    background: #f8f9fb;
+    color: #333;
+}
 
-    /* Navbar */
+/* Top Banner */
+.top-banner {
+    background: #ff4f81;
+    color: white;
+    text-align: center;
+    padding: 9px;
+    font-size: 13px;
+    font-weight: 500;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 999;
+}
+
+/* ================= NAVBAR ================= */
+nav {
+    position: fixed;
+    top: 40px; /* banner height approx */
+    width: 100%;
+    backdrop-filter: blur(15px);
+    background: rgba(0,0,0,0.88);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 5%;
+    z-index: 1000;
+    gap: 12px;
+}
+
+nav h1 {
+    color: #ff4f81;
+    font-weight: 700;
+    font-size: 26px;
+    font-family: serif;
+    white-space: nowrap;
+}
+
+.search-bar {
+    flex: 1;
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 30px;
+    font-size: 14px;
+    outline: none;
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    width: 26px;
+    height: 3px;
+    background: white;
+    border-radius: 3px;
+    transition: all 0.3s;
+}
+
+.menu-toggle.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+.menu-toggle.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px, -6px);
+}
+
+nav ul {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    margin: 0;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    color: #ff4f81;
+}
+
+/* Mobile Navbar */
+@media (max-width: 920px) {
     nav {
-      position: fixed;
-      top: 45px;
-      width: 100%;
-      backdrop-filter: blur(15px);
-      background: rgba(0,0,0,0.85);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 8%;
-      z-index: 1000;
+        top: 36px;
+        padding: 10px 4%;
+        flex-wrap: nowrap;
     }
+
     nav h1 {
-      color: #ff4f81;
-      font-weight: 700;
-      font-size: 28px;
+        font-size: 24px;
     }
+
     .search-bar {
-      flex: 1;
-      max-width: 550px;
-      margin: 0 30px;
+        margin: 0 8px;
     }
-    .search-bar input {
-      width: 100%;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 30px;
-      font-size: 15px;
+
+    .menu-toggle {
+        display: flex;
     }
+
     nav ul {
-      display: flex;
-      gap: 30px;
-      list-style: none;
-    }
-    nav ul li a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      transition: 0.3s;
-    }
-    nav ul li a:hover {
-      color: #ff4f81;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(0,0,0,0.96);
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        padding: 25px 0;
+        display: none;
     }
 
-    /* Main Categories Section */
-    .categories-hero {
-      padding: 160px 8% 60px;
-      text-align: center;
-      background: linear-gradient(135deg, #fff0f5, #ffe4f0);
-    }
-    .categories-hero h1 {
-      font-size: 42px;
-      margin-bottom: 20px;
-      color: #ff4f81;
-    }
-    .categories-hero p {
-      font-size: 18px;
-      max-width: 700px;
-      margin: 0 auto 40px;
-      color: #555;
+    nav ul.active {
+        display: flex;
+        animation: slideDown 0.3s ease;
     }
 
+    @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+}
+
+@media (max-width: 480px) {
+    nav h1 { font-size: 22px; }
+    .search-bar input { padding: 9px 14px; font-size: 13px; }
+    .top-banner { font-size: 12px; padding: 8px; }
+}
+
+/* Categories Hero */
+.categories-hero {
+    padding: 150px 6% 50px;
+    text-align: center;
+    background: linear-gradient(135deg, #fff0f5, #ffe4f0);
+}
+
+.categories-hero h1 {
+    font-size: 38px;
+    margin-bottom: 18px;
+    color: #ff4f81;
+}
+
+.categories-hero p {
+    font-size: 17px;
+    max-width: 680px;
+    margin: 0 auto 35px;
+    color: #555;
+}
+
+/* Category Grid */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+    padding: 0 6% 70px;
+}
+
+.category-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 7px 22px rgba(0,0,0,0.09);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    text-decoration: none;
+    color: white;
+}
+
+.category-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 18px 38px rgba(0,0,0,0.18);
+}
+
+.category-card img {
+    width: 100%;
+    height: 360px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.category-card:hover img {
+    transform: scale(1.07);
+}
+
+.category-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.78), transparent);
+    padding: 28px 18px 18px;
+    text-align: center;
+}
+
+.category-overlay h2 {
+    font-size: 24px;
+    margin-bottom: 6px;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.7);
+}
+
+.category-overlay p {
+    font-size: 15px;
+    opacity: 0.92;
+}
+
+/* Footer */
+footer {
+    background: #000;
+    color: #aaa;
+    text-align: center;
+    padding: 30px 6%;
+    font-size: 13px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
     .category-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-      padding: 0 8% 80px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     }
 
-    .category-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: 20px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      text-decoration: none;
-      color: white;
-    }
-
-    .category-card:hover {
-      transform: translateY(-12px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    .categories-hero h1 {
+        font-size: 32px;
     }
 
     .category-card img {
-      width: 100%;
-      height: 380px;
-      object-fit: cover;
-      transition: transform 0.5s ease;
+        height: 320px;
+    }
+}
+
+@media (max-width: 768px) {
+    .categories-hero {
+        padding: 130px 5% 40px;
     }
 
-    .category-card:hover img {
-      transform: scale(1.08);
+    .categories-hero h1 {
+        font-size: 28px;
     }
 
-    .category-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
-      padding: 30px 20px 20px;
-      text-align: center;
+    .categories-hero p {
+        font-size: 16px;
+    }
+
+    .category-grid {
+        gap: 20px;
+        padding: 0 5% 60px;
     }
 
     .category-overlay h2 {
-      font-size: 28px;
-      margin-bottom: 8px;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 480px) {
+    .category-card img {
+        height: 280px;
+    }
+
+    .category-overlay h2 {
+        font-size: 20px;
     }
 
     .category-overlay p {
-      font-size: 16px;
-      opacity: 0.9;
+        font-size: 14px;
     }
-
-    /* Responsive */
-    @media (max-width: 992px) {
-      .category-grid {
-        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      }
-      .categories-hero h1 {
-        font-size: 34px;
-      }
-    }
-
-    @media (max-width: 768px) {
-      nav {
-        flex-wrap: wrap;
-        padding: 15px 5%;
-      }
-      .search-bar {
-        margin: 15px 0;
-        order: 3;
-        width: 90%;
-      }
-      .categories-hero {
-        padding-top: 140px;
-      }
-    }
-
-    /* Footer (simple version) */
-    footer {
-      background: #000;
-      color: #aaa;
-      text-align: center;
-      padding: 30px 8%;
-      font-size: 14px;
-    }
-  </style>
+}
+</style>
 </head>
 <body>
 
-  <div class="top-banner">
+<div class="top-banner">
     Download Meesho App & Get ₹100 Off on First Order! | Free Delivery Above ₹499
-  </div>
+</div>
 
-  <nav>
+<nav>
     <h1>Meesho</h1>
-    <div class="search-bar">
-      <input type="text" placeholder="Search for products, brands and more..."/>
-    </div>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="shop.html">Shop</a></li>
-      <li><a href="category.html">Categories</a></li>
-      <li><a href="offer.html">Offers</a></li>
-      <li><a href="cart.html">Cart</a></li>
-    </ul>
-  </nav>
 
-  <section class="categories-hero">
+    <div class="search-bar">
+        <input type="text" placeholder="Search for products, brands and more..."/>
+    </div>
+
+    <div class="menu-toggle" id="menu-toggle" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <ul id="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="category.html">Categories</a></li>
+        <li><a href="offer.html">Offers</a></li>
+        <li><a href="cart.html">Cart</a></li>
+    </ul>
+</nav>
+
+<section class="categories-hero">
     <h1>Shop by Categories</h1>
     <p>Explore thousands of trendy products across all categories at unbeatable prices!</p>
-  </section>
+</section>
 
-  <div class="category-grid">
-
+<div class="category-grid">
     <a href="shop.html?cat=women-ethnic" class="category-card">
-      <img src="https://static.startuptalky.com/2021/04/meesho-ethnicwear-startuptalky.jpg" alt="Women Ethnic">
-      <div class="category-overlay">
-        <h2>Women Ethnic</h2>
-        <p>Sarees, Kurtis, Lehengas & More</p>
-      </div>
+        <img src="https://static.startuptalky.com/2021/04/meesho-ethnicwear-startuptalky.jpg" alt="Women Ethnic">
+        <div class="category-overlay">
+            <h2>Women Ethnic</h2>
+            <p>Sarees, Kurtis, Lehengas & More</p>
+        </div>
     </a>
-
     <a href="shop.html?cat=women-western" class="category-card">
-      <img src="https://static.startuptalky.com/2022/07/Women-western-wear-to-Sell-on-Meesho-StartupTalky.jpg" alt="Women Western">
-      <div class="category-overlay">
-        <h2>Women Western</h2>
-        <p>Tops, Dresses, Jeans & Co-ords</p>
-      </div>
+        <img src="https://static.startuptalky.com/2022/07/Women-western-wear-to-Sell-on-Meesho-StartupTalky.jpg" alt="Women Western">
+        <div class="category-overlay">
+            <h2>Women Western</h2>
+            <p>Tops, Dresses, Jeans & Co-ords</p>
+        </div>
     </a>
-
     <a href="shop.html?cat=jewellery" class="category-card">
-      <img src="https://static.startuptalky.com/2021/04/meesho-jewellery-startuptalky.jpg" alt="Jewellery">
-      <div class="category-overlay">
-        <h2>Jewellery & Accessories</h2>
-        <p>Earrings, Necklaces, Bangles</p>
-      </div>
+        <img src="https://static.startuptalky.com/2021/04/meesho-jewellery-startuptalky.jpg" alt="Jewellery">
+        <div class="category-overlay">
+            <h2>Jewellery & Accessories</h2>
+            <p>Earrings, Necklaces, Bangles</p>
+        </div>
     </a>
-
-    <a href="shop.html?cat=beauty" class="category-card">
-      <img src="https://images.unsplash.com/photo-1617890686219-509e0a069e31?w=800" alt="Beauty">
-      <div class="category-overlay">
-        <h2>Beauty & Health</h2>
-        <p>Makeup, Skincare, Haircare</p>
-      </div>
-    </a>
-
+   
     <a href="shop.html?cat=men" class="category-card">
-      <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=800" alt="Men">
-      <div class="category-overlay">
-        <h2>Men</h2>
-        <p>Shirts, T-shirts, Kurtas</p>
-      </div>
-    </a>
-
-    <a href="shop.html?cat=bags" class="category-card">
-      <img src="https://images.unsplash.com/photo-1581605405669-718a6a7e6c46?w=800" alt="Bags">
-      <div class="category-overlay">
-        <h2>Bags & Footwear</h2>
-        <p>Handbags, Backpacks, Shoes</p>
-      </div>
+        <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=800" alt="Men">
+        <div class="category-overlay">
+            <h2>Men</h2>
+            <p>Shirts, T-shirts, Kurtas</p>
+        </div>
     </a>
 
     <a href="shop.html?cat=kids" class="category-card">
-      <img src="https://static.startuptalky.com/2021/04/meesho-kids-dresses-startuptalky.jpg" alt="Kids">
-      <div class="category-overlay">
-        <h2>Kids</h2>
-        <p>Dresses, Ethnic Wear, Toys</p>
-      </div>
+        <img src="https://static.startuptalky.com/2021/04/meesho-kids-dresses-startuptalky.jpg" alt="Kids">
+        <div class="category-overlay">
+            <h2>Kids</h2>
+            <p>Dresses, Ethnic Wear, Toys</p>
+        </div>
     </a>
+  
+</div>
 
-    <a href="shop.html?cat=home" class="category-card">
-      <img src="https://images.unsplash.com/photo-1618221195710-dd2dabb60b29?w=800" alt="Home">
-      <div class="category-overlay">
-        <h2>Home & Kitchen</h2>
-        <p>Decor, Utensils, Bedding</p>
-      </div>
-    </a>
-
-  </div>
-
-  <footer>
+<footer>
     © 2026 Meesho Clone | All Rights Reserved | Made in Coimbatore with ❤️
-  </footer>
+</footer>
+
+<script>
+function toggleMenu() {
+    document.getElementById("nav-links").classList.toggle("active");
+    document.getElementById("menu-toggle").classList.toggle("active");
+}
+
+document.querySelectorAll("#nav-links a").forEach(link => {
+    link.addEventListener("click", () => {
+        document.getElementById("nav-links").classList.remove("active");
+        document.getElementById("menu-toggle").classList.remove("active");
+    });
+});
+</script>
 
 </body>
 </html>
